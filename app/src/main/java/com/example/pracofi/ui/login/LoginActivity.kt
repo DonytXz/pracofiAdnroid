@@ -8,6 +8,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -15,6 +16,7 @@ import android.widget.Toast
 import com.example.pracofi.databinding.ActivityLoginBinding
 
 import com.example.pracofi.R
+import com.example.pracofi.network.Network
 
 class LoginActivity : AppCompatActivity() {
 
@@ -93,7 +95,12 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                if(Network.networkPresent(this@LoginActivity)){
+                    loginViewModel.login(username.text.toString(), password.text.toString())
+                }else{
+                    Toast.makeText(this@LoginActivity, "Not network present", Toast.LENGTH_SHORT).show()
+                }
+
             }
         }
     }
