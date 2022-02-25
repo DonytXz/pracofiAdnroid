@@ -28,7 +28,6 @@ import kotlin.coroutines.suspendCoroutine
 
 class AutService {
     companion object {
-        //        var mHandler =  Handler(Looper.getMainLooper());
         var responseData: String = ""
         var flag: Boolean = false
         fun login(activity: AppCompatActivity, username: String, password: String) {
@@ -52,7 +51,6 @@ class AutService {
 
             client.newCall(request).enqueue(object : Callback {
                 override fun onResponse(call: Call, response: Response) {
-
                     val responseData = response.body?.string()
                     Log.i("POSTSUCCSES", responseData.toString())
                     var map: Map<String, Any> = HashMap()
@@ -66,88 +64,13 @@ class AutService {
                         intent.putExtra("Error_login", "Verifique sus credenciales");
                         activity.startActivity(intent)
                     }
-
                 }
-
                 override fun onFailure(call: Call, e: IOException) {
                     println(e.message.toString())
                     Log.i("POSTERROR", e.message.toString())
                 }
             })
-
-//            try {
-//                val response= client.newCall(request).execute()
-//                var MyResult: String = response.body?.string().toString()
-//                Log.i("RESULT", MyResult.toString())
-//            } catch (e: JSONException) {
-//                e.printStackTrace()
-//            }
-
-
-//            Log.i("FLAGOUT", flag.toString())
-//            Log.i("FLAGOUT", responseData.toString())
-
-//            if(flag){
-//                Log.i("FLAG", "ENTRO!")
-//                Toast.makeText(
-//                    activity,
-//                    "Inicio de session exitoso!",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                Toast.makeText(
-//                    activity,
-//                    responseData,
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//
-//            }
         }
-
-//        suspend fun authenticate(username: String, password: String): Deferred<AutService> = withContext(Dispatchers.IO) {
-//            async {
-//                suspendCoroutine<AutService> { continuation ->
-//                    val jsonObject = JSONObject()
-//                    try {
-//                        jsonObject.put("email", username)
-//                        jsonObject.put("password", password)
-//                    } catch (e: JSONException) {
-//                        e.printStackTrace()
-//                    }
-//                    val mediaType = "application/json; charset=utf-8".toMediaType()
-//                    val body = jsonObject.toString().toRequestBody(mediaType)
-//                    var url = "https://pracofi.herokuapp.com/login"
-//
-//                    // creating request
-//                    var request = Request.Builder().url(url)
-//                        .post(body)
-//                        .build()
-//                    val client = OkHttpClient()
-//
-//                    client.newCall(request).enqueue(object : Callback {
-//                        override fun onResponse(call: Call, response: Response) {
-//                            val body = response.body?.string()
-//
-//                            val gson = GsonBuilder().create()
-//                            val res = gson.fromJson(body, AutService::class.java)
-//                                                Log.i("POSTSUCCSES", res.toString())
-//                            Log.i("FLAG", "ENTRO!")
-//
-//
-//
-////                            APIToken.getInstance().put(APIToken.Key.API_TOKEN, res.token)
-////                            continuation.resume(LoggedInUser(UUID.randomUUID().toString(), "Jane DD","dfasdfasdf")) // return LoggedInUser
-//                        }
-//
-//                        override fun onFailure(call: Call, e: IOException) {
-//                            println("error")
-//                            println(call)
-//                            continuation.resumeWithException(e) // fails with exception
-//                        }
-//                    })
-//                    continuation.resume(return@suspendCoroutine)
-//                }
-//            }
-//        }
     }
 
 

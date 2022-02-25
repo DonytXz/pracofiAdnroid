@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pracofi.Services.AutService
+import com.example.pracofi.Services.Network
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,26 +36,27 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-
         btnLogin.setOnClickListener {
             //text from edit text
             var txtMail = etMail.text.toString()
             var txtPass = etPass.text.toString()
 
-            //check if the EditText have values or not
-            if (txtMail.trim().length > 0 && txtPass.trim().length > 0) {
-                AutService.login(this, txtMail, txtPass)
-
-
-            } else {
-                Toast.makeText(
-                    applicationContext,
-                    "Ingrese sus datos antes de continuar",
-                    Toast.LENGTH_SHORT
-                ).show()
+            //check network capability
+            if(Network.networkPresent(this)){
+                //check if the EditText have values or not
+                if (txtMail.trim().length > 0 && txtPass.trim().length > 0) {
+                    AutService.login(this, txtMail, txtPass)
+                } else {
+                    Toast.makeText(
+                        applicationContext,
+                        "Ingrese sus datos antes de continuar",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+//                Toast.makeText(this, "Network is present", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "Sin conexión a internet", Toast.LENGTH_SHORT).show()
             }
-
-
         }
     }
 }
