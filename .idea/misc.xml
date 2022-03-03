@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/chatb/AndroidStudioProjects/Pracofi/app/src/main/res/layout/activity_dates.xml" value="0.1265625" />
+        <entry key="..\:/Users/chatb/AndroidStudioProjects/Pracofi/app/src/main/res/layout/activity_dates.xml" value="0.4" />
         <entry key="..\:/Users/chatb/AndroidStudioProjects/Pracofi/app/src/main/res/layout/activity_main.xml" value="0.2246376811594203" />
+        <entry key="..\:/Users/chatb/AndroidStudioProjects/Pracofi/app/src/main/res/layout/date_card.xml" value="0.264" />
       </map>
     </option>
   </component>
