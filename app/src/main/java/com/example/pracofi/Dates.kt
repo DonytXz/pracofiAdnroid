@@ -21,14 +21,14 @@ class Dates : AppCompatActivity() {
         ).show()
 
         //check network capability
-        if(Network.networkPresent(this)){
-                val data = getBookings(this)
+        if (Network.networkPresent(this)) {
+            val data = getBookings(this)
             Log.d("TAG1", data.toString())
             val list = findViewById<ListView>(R.id.lvDates)
             val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data)
 
             list.adapter = adapter
-        }else{
+        } else {
             Toast.makeText(this, "Sin conexión a internet", Toast.LENGTH_SHORT).show()
         }
     }
