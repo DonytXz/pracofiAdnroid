@@ -7,10 +7,13 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import com.example.pracofi.Services.AutService
+import com.example.pracofi.Services.Date
+import com.example.pracofi.Services.DatesAdapter
 import com.example.pracofi.Services.DatesService.Companion.getBookings
 import com.example.pracofi.Services.Network
 
 class Dates : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dates)
@@ -23,9 +26,10 @@ class Dates : AppCompatActivity() {
         //check network capability
         if (Network.networkPresent(this)) {
             val data = getBookings(this)
-            Log.d("TAG1", data.toString())
+            Log.d("ARR_DATE", data[0].area.toString())
             val list = findViewById<ListView>(R.id.lvDates)
-            val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data)
+//            val adapter = ArrayAdapter<Date>(this, android.R.layout.simple_list_item_1, data)
+            val adapter = DatesAdapter(this, data)
 
             list.adapter = adapter
         } else {
