@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,122 +10,45 @@
 >
 
     <LinearLayout
-        android:id="@+id/infoSection"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_margin="6dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/reason"
-            android:layout_width="match_parent"
+            android:id="@+id/tvTopic"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Motivo"
-            android:textColor="@color/black"
-            android:layout_marginLeft="5dp"
-            android:textSize="18sp" />
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="16dp"
+            android:text="TextView" />
 
         <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
+            android:id="@+id/tvDate"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:text="Description"
-            android:textSize="15sp" />
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="16dp"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/tvDateTime"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="16dp"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/ivBtnDelete"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="16dp"
+            app:srcCompat="@android:drawable/ic_delete" />
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/pricingSection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/infoSection"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/terrenotxt"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:src="@color/cardview_dark_background"
-            android:contentDescription="Property Image"/>
-
-        <TextView
-            android:id="@+id/terreno"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@id/terrenotxt"
-            android:text="terreno" />
-
-        <ImageView
-            android:id="@+id/construcciontxt"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:layout_below="@id/terreno"
-            android:src="@color/cardview_dark_background"
-            android:contentDescription="Property Image"/>
-
-        <TextView
-            android:id="@+id/construccion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_toRightOf="@id/construcciontxt"
-            android:layout_below="@id/terreno"
-            android:text="connstruccion" />
-
-        <ImageView
-            android:id="@+id/recamara"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:src="@color/cardview_dark_background"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/terreno"
-            android:contentDescription="Bedroom Image"/>
-
-        <TextView
-            android:id="@+id/recamaraa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/recamara"
-            android:text="recamara" />
-
-        <ImageView
-            android:id="@+id/banos"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:layout_below="@id/recamara"
-            android:src="@color/cardview_dark_background"
-            android:layout_marginLeft="20dp"
-            android:layout_centerVertical="false"
-            android:layout_toRightOf="@id/terreno"
-            android:contentDescription="Property Image"/>
-
-        <TextView
-            android:id="@+id/banoos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/recamara"
-            android:layout_toRightOf="@id/banos"
-            android:layout_marginBottom="10dp"
-            android:text="banos" />
-
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Price"
-            android:layout_toRightOf="@id/banoos"
-            android:layout_below="@id/recamara"
-            android:gravity="right|bottom"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            android:layout_marginLeft="15dp"/>
-
-
-    </RelativeLayout>
-
-</RelativeLayout>
+</LinearLayout>
