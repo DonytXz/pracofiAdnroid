@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.*
 import com.example.pracofi.Services.AutService
 import com.example.pracofi.Services.Date
 import com.example.pracofi.Services.DatesAdapter
+import com.example.pracofi.Services.DatesService.Companion.deleteMethod
 import com.example.pracofi.Services.DatesService.Companion.getBookings
 import com.example.pracofi.Services.Network
 
@@ -18,6 +20,9 @@ class Dates : AppCompatActivity() {
         setContentView(R.layout.activity_dates)
         var errorMsj: String = ""
         var userName: String = ""
+        var isLoadding: String = ""
+        val context = this
+        val tvIsNoData = findViewById<TextView>(R.id.tvNoData)
 
 //        Toast.makeText(
 //            this,
@@ -29,18 +34,25 @@ class Dates : AppCompatActivity() {
             val extras = intent.extras
             if (extras == null) {
 
-            }
-            else{
+            } else {
                 errorMsj = extras.getString("Error").toString()
-                userName = "Bienvenido " + extras.getString("User").toString()
-
+                userName =  extras.getString("User").toString()
+                isLoadding = extras.getString("LOADING").toString()
                 if (!userName.isEmpty()) {
                     Toast.makeText(
                         this,
-                        userName,
+                        "Bienvenido " + userName,
                         Toast.LENGTH_SHORT
                     ).show()
-                }else if (!errorMsj.isEmpty()) {
+                }
+                if(!isLoadding.isEmpty()){
+                    Toast.makeText(
+                        this,
+                        isLoadding,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                if (!errorMsj.isEmpty()) {
                     Toast.makeText(
                         this,
                         errorMsj,
@@ -53,18 +65,31 @@ class Dates : AppCompatActivity() {
         //check network capability
         if (Network.networkPresent(this)) {
             val data = getBookings(this)
-            Log.d("ARR_DATE", data[0].area.toString())
+            Log.d("ARR_DATE", data.toString())
             val list = findViewById<ListView>(R.id.lvDates)
+//            val ivBtnDelete = findViewById<ImageView>(R.id.ivBtnDelete)
 //            val adapter = ArrayAdapter<Date>(this, android.R.layout.simple_list_item_1, data)
 
 
             val adapter = DatesAdapter(this, data)
 
+//            ivBtnDelete.setOnClickListener {
+//                deleteMethod()
+//            }
+
+
             list.adapter = adapter
+
+
             list.onItemClickListener =
                 AdapterView.OnItemClickListener { parent, view, position, id ->
 //                Log.d("LISTENER", data.get(position).date.toString())
 //                Toast.makeText(this, data.get(position).topic.toString(), Toast.LENGTH_SHORT).show()
+                    val ivBtnDelete = view.findViewById<ImageView>(R.id.ivBtnDelete)
+                    ivBtnDelete.setOnClickListener {
+                        deleteMethod(data.get(position).id.toString(), context)
+                    }
+
                     val intent = Intent(this, Details::class.java)
                     intent.putExtra("Date", data.get(position).date.toString());
                     intent.putExtra("DateTime", data.get(position).dateTime.toString());
@@ -75,6 +100,11 @@ class Dates : AppCompatActivity() {
                     intent.putExtra("ID", data.get(position).id.toString());
                     this.startActivity(intent)
                 }
+            if(data?.isEmpty()){
+                list.setVisibility(View.GONE);
+            }else{
+                tvIsNoData.setVisibility(TextView.GONE);
+            }
 
         } else {
             Toast.makeText(this, "Sin conexión a internet", Toast.LENGTH_SHORT).show()
