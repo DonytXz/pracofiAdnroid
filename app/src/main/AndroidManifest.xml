@@ -14,6 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pracofi">
         <activity
+            android:name=".Details"
+            android:exported="false"
+            android:label="@string/title_activity_details"
+            android:theme="@style/Theme.Pracofi.NoActionBar" />
+        <activity
             android:name=".Dates"
             android:exported="false" />
         <activity

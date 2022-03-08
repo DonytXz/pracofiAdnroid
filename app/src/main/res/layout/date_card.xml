@@ -42,13 +42,14 @@
             android:text="TextView" />
 
         <ImageView
-            android:id="@+id/ivBtnDelete"
+            android:id="@+id/ivBtnModify"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="16dp"
-            app:srcCompat="@android:drawable/ic_delete" />
+            app:srcCompat="@android:drawable/ic_menu_delete" />
 
     </LinearLayout>
+
 </LinearLayout>

@@ -1,13 +1,27 @@
 package com.example.pracofi.Services
 
+import android.content.Context
+import android.content.Intent
 import android.os.StrictMode
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pracofi.Dates
+import com.example.pracofi.Details
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 import org.json.JSONArray
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.http.DELETE
+import retrofit2.http.Path
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
@@ -70,8 +84,48 @@ class DatesService {
             return data
         }
 
-        inline fun <reified T> Gson.fromJson(json: String) =
-            fromJson<T>(json, object : TypeToken<T>() {}.type)
+        fun deleteMethod(id: String, view: Context) {
+
+            // Create Retrofit
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://pracofi.herokuapp.com")
+                .build()
+
+            // Create Service
+            val service = retrofit.create(APIService::class.java)
+
+            CoroutineScope(Dispatchers.IO).launch {
+
+                // Do the DELETE request and get response
+
+
+                val response = service.deleteEmployee(id)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        Log.d("REPONSE_DELETE", response.body().toString())
+                        val intent = Intent(view, Dates::class.java)
+                        intent.putExtra("LOADING", "Cargando...");
+                        view.startActivity(intent)
+                        // Convert raw JSON to pretty JSON using GSON library
+//                        val gson = GsonBuilder().setPrettyPrinting().create()
+//                        val prettyJson = gson.toJson(
+//                            JsonParser.parseString(
+//                                response.body()
+//                                    ?.string() // About this thread blocking annotation : https://github.com/square/retrofit/issues/3255
+//                            )
+//                        )
+//
+//                        Log.d("Pretty Printed JSON :", prettyJson)
+
+                    } else {
+
+                        Log.e("RETROFIT_ERROR", response.code().toString())
+
+                    }
+
+                }
+            }
+        }
 
         fun parseResponse(response: String, activity: AppCompatActivity): ArrayList<Date> {
 
@@ -115,4 +169,12 @@ class DatesService {
         }
 
     }
+}
+
+interface APIService {
+    @DELETE("/citas/{id}")
+//    @DELETE("/citas?id={id}")
+    suspend fun deleteEmployee(
+        @Path("id") id: String    // use @Path() instead of @Query()
+    ): Response<ResponseBody>
 }
