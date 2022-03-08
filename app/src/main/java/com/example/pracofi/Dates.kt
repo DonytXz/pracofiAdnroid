@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import com.example.pracofi.Services.AutService
-import com.example.pracofi.Services.Date
 import com.example.pracofi.Services.DatesAdapter
 import com.example.pracofi.Services.DatesService.Companion.deleteMethod
 import com.example.pracofi.Services.DatesService.Companion.getBookings
@@ -85,7 +83,7 @@ class Dates : AppCompatActivity() {
                 AdapterView.OnItemClickListener { parent, view, position, id ->
 //                Log.d("LISTENER", data.get(position).date.toString())
 //                Toast.makeText(this, data.get(position).topic.toString(), Toast.LENGTH_SHORT).show()
-                    val ivBtnDelete = view.findViewById<ImageView>(R.id.ivBtnDelete)
+                    val ivBtnDelete = view.findViewById<ImageView>(R.id.ivBtnModify)
                     ivBtnDelete.setOnClickListener {
                         deleteMethod(data.get(position).id.toString(), context)
                     }
