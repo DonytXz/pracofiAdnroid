@@ -1,5 +1,6 @@
 package com.example.pracofi
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,7 +21,9 @@ class Details : AppCompatActivity() {
         if (savedInstanceState == null) {
             val extras = intent.extras
             if (extras == null) {
-                //TODO HANDLE FAIL
+                val intent = Intent(this, Dates::class.java);
+                intent.putExtra("Error", "No se encontro la cita");
+                this.startActivity(intent)
             } else {
                 date =   extras.getString("Date").toString()
                 dateTime = extras.getString("DateTime").toString()
@@ -37,8 +40,6 @@ class Details : AppCompatActivity() {
                 Log.d("EXTRAS", userId)
                 Log.d("EXTRAS", id)
             }
-        } else {
-            //TODO HANDLE ELSE
         }
     }
 }

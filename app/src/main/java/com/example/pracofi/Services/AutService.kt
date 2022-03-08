@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.pracofi.Dates
 import com.example.pracofi.MainActivity
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -43,10 +44,18 @@ class AutService {
                     val responseData = response.body?.string()
                     Log.i("POSTSUCCSES", responseData.toString())
                     var map: Map<String, Any> = HashMap()
+                    var mapUser: Map<String, Any> = HashMap()
                     map = Gson().fromJson(responseData, map.javaClass)
+                    mapUser = map["usuario"] as Map<String, Any>
                     val flag:Boolean = map["ok"] as Boolean
+//                    val user:JSONObject = map["usuario"] as JSONObject
+                    val name:String = mapUser["nombre"] as String
+
+                    Log.i("POSTSUCCSES", mapUser.toString())
+                    Log.i("POSTSUCCSES", name.toString())
                     if(flag){
                         val intent = Intent(activity, Dates::class.java)
+                        intent.putExtra("User", name);
                         activity.startActivity(intent)
                     }else{
                         val intent = Intent(activity, MainActivity::class.java)
