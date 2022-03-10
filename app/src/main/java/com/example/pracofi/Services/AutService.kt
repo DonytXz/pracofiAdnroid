@@ -2,18 +2,18 @@ package com.example.pracofi.Services
 
 import android.content.Intent
 import android.util.Log
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pracofi.Dates
-import com.example.pracofi.MainActivity
+import com.example.pracofi.R
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
-import java.util.*
 
 
 class AutService {
@@ -46,23 +46,41 @@ class AutService {
                     var map: Map<String, Any> = HashMap()
                     var mapUser: Map<String, Any> = HashMap()
                     map = Gson().fromJson(responseData, map.javaClass)
-                    mapUser = map["usuario"] as Map<String, Any>
-                    val flag:Boolean = map["ok"] as Boolean
+                    val flag: Boolean = map["ok"] as Boolean
+                    if (flag) {
+                        Log.i("FLAGTRUE", responseData.toString())
+                        mapUser = map["usuario"] as Map<String, Any>
 //                    val user:JSONObject = map["usuario"] as JSONObject
-                    val name:String = mapUser["nombre"] as String
+                        val name: String = mapUser["nombre"] as String
 
-                    Log.i("POSTSUCCSES", mapUser.toString())
-                    Log.i("POSTSUCCSES", name.toString())
-                    if(flag){
+                        Log.i("POSTSUCCSES", mapUser.toString())
+                        Log.i("POSTSUCCSES", name.toString())
                         val intent = Intent(activity, Dates::class.java)
                         intent.putExtra("User", name);
                         activity.startActivity(intent)
-                    }else{
-                        val intent = Intent(activity, MainActivity::class.java)
-                        intent.putExtra("Error_login", "Verifique sus credenciales");
-                        activity.startActivity(intent)
+                    } else {
+                        Log.i("FLAGFALSE", responseData.toString())
+                        var mapError: Map<String, Any> = HashMap()
+                        mapError = map["err"] as Map<String, Any>
+                        val error: String = mapError["message"] as String
+                        activity.runOnUiThread {
+                            Toast.makeText(
+                                activity,
+                                error,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        val etEmail = activity.findViewById<EditText>(R.id.etEmail)
+                        val etPass = activity.findViewById<EditText>(R.id.etPassword)
+                        etEmail.setText("")
+                        etPass.setText("")
+//                        val intent = Intent(activity, MainActivity::class.java)
+//                        intent.putExtra("Error_login", "Verifique sus credenciales");
+//                        activity.startActivity(intent)
                     }
                 }
+
                 override fun onFailure(call: Call, e: IOException) {
                     println(e.message.toString())
                     Log.i("POSTERROR", e.message.toString())

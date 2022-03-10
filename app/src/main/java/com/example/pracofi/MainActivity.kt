@@ -18,24 +18,6 @@ class MainActivity : AppCompatActivity() {
         val etPass = findViewById<EditText>(R.id.etPassword)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
 
-        var errorString: String = ""
-        if (savedInstanceState == null) {
-            val extras = intent.extras
-            if (extras == null) {
-                errorString = ""
-            } else {
-                errorString = extras.getString("Error_login").toString()
-            }
-        } else {
-            errorString = (savedInstanceState.getSerializable("Error_login") as String?).toString()
-        }
-        if (errorString != "") {
-            Toast.makeText(
-                this,
-                errorString,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
         btnLogin.setOnClickListener {
             //text from edit text
             var txtMail = etMail.text.toString()
