@@ -16,9 +16,9 @@ class Dates : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dates)
-        var errorMsj: String = ""
-        var userName: String = ""
-        var isLoadding: String = ""
+        var errorMsj: String
+        var userName: String
+        var isLoadding: String
         val context = this
         val tvIsNoData = findViewById<TextView>(R.id.tvNoData)
 
@@ -34,29 +34,39 @@ class Dates : AppCompatActivity() {
 
             } else {
                 errorMsj = extras.getString("Error").toString()
-                userName =  extras.getString("User").toString()
+                userName = extras.getString("User").toString()
                 isLoadding = extras.getString("LOADING").toString()
-                if (!userName.isEmpty()) {
-                    Toast.makeText(
-                        this,
-                        "Bienvenido " + userName,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                if(!isLoadding.isEmpty()){
-                    Toast.makeText(
-                        this,
-                        isLoadding,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                if (!errorMsj.isEmpty()) {
-                    Toast.makeText(
-                        this,
-                        errorMsj,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+
+                Toast.makeText(
+                    this,
+                    "Bienvenido " + userName,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+//                Log.i("EXTRASONDATES", errorMsj.toString())
+//                Log.i("EXTRASONDATES", userName.toString())
+//                Log.i("EXTRASONDATES", isLoadding.toString())
+//                if (userName == "null") {
+//                    Toast.makeText(
+//                        this,
+//                        "Bienvenido " + userName,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//                if(userName == "null"){
+//                    Toast.makeText(
+//                        this,
+//                        isLoadding,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//                if (userName == "null") {
+//                    Toast.makeText(
+//                        this,
+//                        errorMsj,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
             }
         }
 
@@ -98,9 +108,9 @@ class Dates : AppCompatActivity() {
                     intent.putExtra("ID", data.get(position).id.toString());
                     this.startActivity(intent)
                 }
-            if(data?.isEmpty()){
+            if (data?.isEmpty()) {
                 list.setVisibility(View.GONE);
-            }else{
+            } else {
                 tvIsNoData.setVisibility(TextView.GONE);
             }
 

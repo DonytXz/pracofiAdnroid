@@ -104,7 +104,7 @@ class DatesService {
                     if (response.isSuccessful) {
                         Log.d("REPONSE_DELETE", response.body().toString())
                         val intent = Intent(view, Dates::class.java)
-                        intent.putExtra("LOADING", "Cargando...");
+//                        intent.putExtra("LOADING", "Cargando...");
                         view.startActivity(intent)
                         // Convert raw JSON to pretty JSON using GSON library
 //                        val gson = GsonBuilder().setPrettyPrinting().create()

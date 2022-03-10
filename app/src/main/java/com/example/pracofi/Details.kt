@@ -32,7 +32,7 @@ class Details : AppCompatActivity() {
             val extras = intent.extras
             if (extras == null) {
                 val intent = Intent(this, Dates::class.java);
-                intent.putExtra("Error", "No se encontro la cita");
+//                intent.putExtra("Error", "No se encontro la cita");
                 this.startActivity(intent)
             } else {
                 date =   extras.getString("Date").toString()
